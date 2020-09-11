@@ -1,5 +1,7 @@
 # intrace
 
+**THIS CODE WILL ONLY WORK ON DEPLOYMENTS AT ROOT APEX; INSTANCES UNDER A FOLDER WILL NOT WORK**
+
 intrace is a multi-purpose and multi-location looking glass supporting a wide variety of query types through some easy configuration files (BIRD, MTR, Ping &amp; Traceroute pre-configured)
 
 ## Deploying a new intrace instance
