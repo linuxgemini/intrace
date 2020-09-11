@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 			jQuery('#target').val(urlhash.target);
 		}
 	} else {
-		jQuery.get('ip', function (clientip) {
+		jQuery.get('/ip', function (clientip) {
 			if (jQuery('#target').val() === '') {
 				jQuery('#target').val(clientip);
 				jQuery('#target').select();
@@ -138,14 +138,15 @@ jQuery(document).ready(function() {
 		onstyle: 'primary',
 		offstyle: 'default',
 		style: 'intrace',
-		width: 60
+		width: 60,
+		height: 16
 	};
-	jQuery.getJSON('config.json', function (config) {
+	jQuery.getJSON('/config.json', function (config) {
 		jQuery('#page-header').html(config.html.header);
 		jQuery('#page-footer').html(config.html.footer);
 		jQuery('title').text(config.html.title);
 	});
-	jQuery.getJSON('probes.json', function (probes) {
+	jQuery.getJSON('/probes.json', function (probes) {
 		var lastgroup = null;
 		var groups = {};
 		Object.keys(probes).forEach(function (probe) {
@@ -169,7 +170,7 @@ jQuery(document).ready(function() {
 				(lastgroup !== probes[probe].group ? '<div data-group="' + probes[probe].group + '" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 groupheader"><h3 class="groupheader-toggle">' + (lastgroup = probes[probe].group) + '</h3></div>' : '') +
 				'<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 cap_probe' + (probes[probe].residential ? ' residential' : '') + '">' +
 					'<div class="float_left">' +
-						'<img src="flags/' + probes[probe].unlocode.toLowerCase().replace(/^(..)(...)$/, '$1') + '.png" class="country-toggle"> ' + 
+						'<img src="/flags/' + probes[probe].unlocode.toLowerCase().replace(/^(..)(...)$/, '$1') + '.png" class="country-toggle"> ' + 
 						'<input id="probe_' + probe + '" data-residential="' + probes[probe].residential + '" data-group="' + probes[probe].group + '" data-unlocode="' + probes[probe].unlocode + '" data-country="' + probes[probe].country + '" data-city="' + probes[probe].city + '" data-provider="' + probes[probe].provider + '" data-asnumber="' + probes[probe].asnumber + '" ' + Object.keys(probes[probe].caps).map(function(cap){return 'data-cap'+cap+'="' + probes[probe].caps[cap] + '"';}).join(' ') + ' ' + (!probes[probe].status ? 'disabled ' : '') + 'data-toggle="probestoggle" data-on="' + probes[probe].unlocode.toUpperCase().replace(/^(..)(...)$/, '$1-$2') + '" data-off="' + probes[probe].unlocode.toUpperCase().replace(/^(..)(...)$/, '$1-$2') + '" type="checkbox" class="probe_checkbox"> ' +
 						probes[probe].city +
 					'</div>' +
@@ -177,7 +178,7 @@ jQuery(document).ready(function() {
 						'&nbsp;<a href="' + probes[probe].providerurl + '" class="glyphicon glyphicon-home providerhome" aria-hidden="true"></a> ' +
 						'<a href="#" class="provider-toggle">' + probes[probe].provider + '</a> ' +
 						'<a target="_blank" href="https://bgpview.io/asn/' + probes[probe].asnumber + '" class="asn">' + probes[probe].asnumber + '</a> ' +
-						'<a href="#" class="provider-toggle"><img src="providerlogos/' + md5(probes[probe].provider) + '.png" alt="" title="' + probes[probe].provider + '" onerror="this.onerror=null;this.src=\'providerlogos/d41d8cd98f00b204e9800998ecf8427e.png\';" ></a>' +
+						'<a href="#" class="provider-toggle"><img src="/providerlogos/' + md5(probes[probe].provider) + '.png" alt="" title="' + probes[probe].provider + '" onerror="this.onerror=null;this.src=\'/providerlogos/d41d8cd98f00b204e9800998ecf8427e.png\';" ></a>' +
 					'</div>' +
 					'<div class="clear_both"></div>' +
 				'</div>'
@@ -215,7 +216,7 @@ jQuery(document).ready(function() {
 			});
 		}
 	});
-	jQuery.getJSON('caps.json', function (caps) {
+	jQuery.getJSON('/caps.json', function (caps) {
 		jQuery('#caps').html(Object.keys(caps).map(function (cap) {
 			capsmatch[cap] = caps[cap].highlight;
 			return (

@@ -31,7 +31,7 @@ const caps = require('./config/caps.json');
 
 const hash = string => ('000' + bases.toBase64(Math.abs(crc32.str(string)) % 1073741824)).substr(-5).replace(/\+/g, '-').replace(/\//g, '_');
 
-const log = (...args) => console.error.apply(null, [(log.needs_newline ? '\n' : (log.needs_newline = false).toString().substr(0, 0)) + (new Date()).toISOString()].concat(...args));
+const log = (...args) => console.log.apply(null, [(log.needs_newline ? '\n' : (log.needs_newline = false).toString().substr(0, 0)) + (new Date()).toISOString()].concat(...args));
 
 const cvalidator = {
 	object: str => str && typeof str === 'object' && str instanceof Object,
@@ -433,7 +433,9 @@ io.on('connection', socket => {
 			command: (caps[query.type]['cmd' + proto] || caps[query.type]['cmd'] || 'echo unsupported').replace(/\{\{TARGET\}\}/g, query.target).replace(/\{\{PROTO\}\}/g, proto)
 		});
 		if (config.logs.requests && config.logs.requests.websocket) {
-			log('enqueue-websocket', 'remote=' + (config.logs.use_x_forwarded_for ? socket.client.request.headers['x-forwarded-for'] : socket.request.connection.remoteAddress), 'type=' + query.type, 'probe=' + query.probe, 'target=' + query.target);
+			let remipraw = (config.logs.use_x_forwarded_for ? socket.client.request.headers['x-forwarded-for'] : socket.request.connection.remoteAddress);
+			if (remipraw.includes(',')) remipraw = remipraw.replace(/ /g, '').split(',')[0];
+			log('enqueue-websocket', 'remote=' + remipraw, 'type=' + query.type, 'probe=' + query.probe, 'target=' + query.target);
 		}
 	});
 });
