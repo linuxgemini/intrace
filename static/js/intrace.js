@@ -118,11 +118,14 @@ jQuery(document).ready(function() {
 			jQuery('#query_' + res.id + '_small').text(jQuery('#query_' + res.id).text().split('\n').map(function(line){return line.trim();}).filter(function(line){return line!=='';}).reverse().slice(0, 1));
 		}
 	};
+	/*
 	var address = window.location.protocol + '//' + window.location.host;
 	var details = {
 		'path': ('/' + window.location.pathname.split('/').slice(0, -1).join('/') + '/socket.io').substring(1)
 	};
 	var socket = io.connect(address, details);
+	*/
+	var socket = io();
 	socket.on('err', function (res) {
 		datahandler({
 			id: res.id,
