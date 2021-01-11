@@ -1,6 +1,5 @@
 jQuery(document).ready(function() {
 	jQuery('body').html(
-		'<a class="github-fork-ribbon" href="//github.com/Fusl/intrace" title="Fork me on GitHub">Fork me on GitHub</a>' +
 		'<div class="container">' +
 			'<div class="row">' +
 				'<div class="col-xs-12">' +
@@ -278,7 +277,7 @@ jQuery(document).ready(function() {
 					'<div class="col-xs-12">' +
 						'<div class="panel panel-default">' +
 							'<div class="panel-heading">' +
-								'<h3 class="panel-title query-header">' + target + ' | ' + jQuery('#cap_' + cap).data('name') + ' from ' + jQuery('#probe_' + probe).data('provider') + ' AS' + jQuery('#probe_' + probe).data('asnumber') + ' in ' + jQuery('#probe_' + probe).data('country') + ', ' + jQuery('#probe_' + probe).data('city') + ' <small id="query_' + id + '_small"></small></h3>' +
+								'<h3 class="panel-title query-header">' + target + ' | ' + jQuery('#cap_' + cap).data('name') + ' from ' + jQuery('#probe_' + probe).data('provider') + ' AS' + jQuery('#probe_' + probe).data('asnumber') + ' in ' + jQuery('#probe_' + probe).data('city') + ', ' + jQuery('#probe_' + probe).data('country') + ' <small id="query_' + id + '_small"></small></h3>' +
 							'</div>' +
 							'<div class="panel-body">' +
 								'<div id="query_' + id + '_progress" class="progress"><div id="query_' + id + '_progress_bar" class="progress-bar progress-bar-striped active" role="progressbar" data-progress=""></div></div>' +
